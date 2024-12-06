@@ -1,5 +1,5 @@
 
-import {Product} from "../(test)/product"
+import {Product} from "./products/page"
 
 export default function Home() {
   return (
