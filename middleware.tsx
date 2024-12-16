@@ -17,8 +17,15 @@ export async function middleware(request) {
       throw new Error("Login fail");
     }
     const responseJson = await response.json();
+    const ReqHeaders = new Headers(request.headers)
+    ReqHeaders.set('users',JSON.stringify({email:responseJson.email}))
+
     console.log("response", responseJson);
-    return NextResponse.next();
+    return NextResponse.next({
+      request:{
+        headers:ReqHeaders
+      }
+    });
   } catch (error) {
     console.log("error", error);
     return NextResponse.redirect(new URL('/', request.url));

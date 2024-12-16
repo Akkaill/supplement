@@ -2,6 +2,8 @@
 
 import axios from "axios";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+
 export async function login(prevState, formData) {
   try {
     const email = formData.get('email');
@@ -11,7 +13,7 @@ export async function login(prevState, formData) {
       { identifier: email, password }
     );
    (await cookies()).set('token',response.data.jwt)
-    return { mesasage: 'Login ok' };
+    // return { mesasage: 'Login ok' };
     
   } catch (error) {
     console.log("error", error.response);
@@ -21,4 +23,5 @@ export async function login(prevState, formData) {
     }
     return { message: errorMessage|| "Login fail" };
   }
+  redirect('/special-products')
 }
